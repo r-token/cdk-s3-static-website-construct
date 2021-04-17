@@ -2,6 +2,7 @@ import * as cdk from '@aws-cdk/core';
 import s3 = require('@aws-cdk/aws-s3');
 import s3deploy = require('@aws-cdk/aws-s3-deployment');
 import cf = require('@aws-cdk/aws-cloudfront')
+import iam = require('@aws-cdk/aws-iam')
 
 export interface S3StaticWebsiteConstructProps extends cdk.StackProps {
     projectName: string,
@@ -11,6 +12,7 @@ export interface S3StaticWebsiteConstructProps extends cdk.StackProps {
     cdnWebsiteIndexDocument: string,
     cdnComment: string
 }
+
 export class S3StaticWebsiteConstruct extends cdk.Construct {
 
   constructor(scope: cdk.Construct, id: string, props: S3StaticWebsiteConstructProps) {
@@ -19,7 +21,7 @@ export class S3StaticWebsiteConstruct extends cdk.Construct {
     // Define construct contents here
     /* Website Bucket is the target bucket for the react application */
     const websiteBucket = new s3.Bucket(this, 'WebsiteBucket', {
-        bucketName: `website-bucket-${Math.floor(Math.random() * Math.floor(1000000))}`,
+        bucketName: `${props.projectName}-website-bucket-${Math.floor(Math.random() * Math.floor(1000000))}`,
         removalPolicy: cdk.RemovalPolicy.DESTROY,
         websiteIndexDocument: props.websiteIndexDocument,
         websiteErrorDocument: props.websiteIndexDocument,
@@ -31,6 +33,17 @@ export class S3StaticWebsiteConstruct extends cdk.Construct {
         sources: [s3deploy.Source.asset('../assets/archive')],
         destinationBucket:  websiteBucket
     });
+    
+    // Set website bucket allow policy
+    websiteBucket.addToResourcePolicy(
+      new iam.PolicyStatement({
+        resources: [
+          `${websiteBucket.bucketArn}`
+        ],
+        actions: ["s3.Get*"],
+        principals: [new iam.AnyPrincipal]
+      })
+    )
 
     const assetsCdn = new cf.CloudFrontWebDistribution(this, 'AssetsCdn', {
       defaultRootObject: props.cdnWebsiteIndexDocument,
@@ -49,5 +62,9 @@ export class S3StaticWebsiteConstruct extends cdk.Construct {
           }
       ]
     });
+
+    // Outputs
+    new cdk.CfnOutput(this, 'WebsiteBucketUrl', { value: websiteBucket.bucketWebsiteUrl })
+    new cdk.CfnOutput(this, 'CdnUrl', { value: assetsCdn.distributionDomainName })
   }
 }
