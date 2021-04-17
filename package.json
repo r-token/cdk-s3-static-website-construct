@@ -9,18 +9,21 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.97.0",
-    "@types/jest": "^26.0.10",
-    "@types/node": "10.17.27",
-    "jest": "^26.4.2",
-    "ts-jest": "^26.2.0",
-    "typescript": "~3.9.7"
+    "@aws-cdk/assert": "1.98.0",
+    "@types/jest": "^26.0.22",
+    "@types/node": "14.14.41",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
+    "typescript": "~4.2.4"
   },
   "peerDependencies": {
-    "@aws-cdk/core": "1.97.0"
+    "@aws-cdk/core": "1.98.0"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.97.0"
+    "@aws-cdk/aws-cloudfront": "^1.98.0",
+    "@aws-cdk/aws-s3": "^1.98.0",
+    "@aws-cdk/aws-s3-deployment": "^1.98.0",
+    "@aws-cdk/core": "1.98.0"
   },
   "description": "You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`S3StaticWebsiteConstruct`) which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.",
   "directories": {
