@@ -10,5 +10,6 @@ export class S3StaticWebsiteConstruct extends cdk.Construct {
     super(scope, id);
 
     // Define construct contents here
+    
   }
 }

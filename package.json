@@ -1,5 +1,5 @@
 {
-  "name": "s3-static-website-construct",
+  "name": "@r-token/s3-static-website-construct",
   "version": "0.1.0",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -21,5 +21,12 @@
   },
   "dependencies": {
     "@aws-cdk/core": "1.97.0"
-  }
+  },
+  "description": "You should explore the contents of this project. It demonstrates a CDK Construct Library that includes a construct (`S3StaticWebsiteConstruct`) which contains an Amazon SQS queue that is subscribed to an Amazon SNS topic.",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "author": "",
+  "license": "ISC"
 }
