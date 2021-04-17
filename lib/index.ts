@@ -30,7 +30,7 @@ export class S3StaticWebsiteConstruct extends cdk.Construct {
     /* S3 Website Deployment */
     /* Seed the website bucket with the react source */
     const s3WebsiteDeploy = new s3deploy.BucketDeployment(this, 'S3WebsiteDeploy', {
-        sources: [s3deploy.Source.asset('../assets')],
+        sources: [s3deploy.Source.asset(props.s3WebsiteDeploySource)],
         destinationBucket:  websiteBucket
     });
     
