@@ -4,7 +4,7 @@ import iam = require('@aws-cdk/aws-iam');
 import s3deploy = require('@aws-cdk/aws-s3-deployment');
 import cf = require('@aws-cdk/aws-cloudfront');
 
-export interface CdkS3StaticWebsiteConstructProps extends cdk.StackProps {
+export interface S3StaticWebsiteConstructProps extends cdk.StackProps {
   projectName: string,
   s3WebsiteDeploySource?: string,
   websiteIndexDocument: string,
@@ -14,8 +14,8 @@ export interface CdkS3StaticWebsiteConstructProps extends cdk.StackProps {
   useCdn: boolean
 }
 
-export class CdkS3StaticWebsiteConstruct extends cdk.Construct {
-  constructor(scope: cdk.Construct, id: string, props: CdkS3StaticWebsiteConstructProps) {
+export class S3StaticWebsiteConstruct extends cdk.Construct {
+  constructor(scope: cdk.Construct, id: string, props: S3StaticWebsiteConstructProps) {
     if (props.projectName.length > 12) {
       throw new Error('Project name must be less than 13 characters');
     }
