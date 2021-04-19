@@ -11,7 +11,9 @@ export interface S3StaticWebsiteConstructProps extends cdk.StackProps {
   websiteErrorDocument: string,
   cdnWebsiteIndexDocument: string,
   cdnComment: string,
-  useCdn: boolean
+  useCdn: boolean,
+  bucketVersioned?: boolean,
+  requireBucketEncryption?: boolean
 }
 
 export class S3StaticWebsiteConstruct extends cdk.Construct {
